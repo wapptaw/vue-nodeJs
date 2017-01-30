@@ -1,0 +1,41 @@
+$color: #444;
+.homeNav {
+    height: 50px;
+    background-color: $color;
+    padding: 0 67px; 
+    line-height: 50px;
+    font-size: 0;
+    &>a {
+        vertical-align: middle;
+        font-size: 0;
+    }
+    img {
+        width: 120px;
+        vertical-align: middle;
+    }
+    input {
+        height: 26px;
+        width: 233px;
+        background-color: lighten($color, 30%);
+        @include prefix(border-radius, 20px);
+        text-indent: 1.5em;
+        vertical-align: middle;
+        color: #666;
+        margin-left: 20px;
+    }
+    ul {
+        float: right;
+    }
+    li {
+        font-size: 13px;
+        padding: 0 16px;
+        display: inline-block;
+        line-height: 50px;
+        a {
+            color: #ccc;
+            &:hover {
+                color: lighten(#ccc, 30%);
+            }
+        }
+    }
+}

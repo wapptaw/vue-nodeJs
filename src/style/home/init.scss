@@ -1,0 +1,23 @@
+@mixin init {
+    margin: 0;
+    padding: 0;
+    font-family: '微软雅黑', 'arial';
+}
+
+html, body, div, article, section, nav, header, p, form, span, img, button {
+    @include init;
+}
+ul, li {
+    @include init;
+    list-style: none;
+}
+a {
+    @include init;
+    text-decoration: none;
+}
+input {
+    @include init;
+    border: none;
+    background-color: none;
+    outline: none;
+}
