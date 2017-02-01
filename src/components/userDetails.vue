@@ -38,6 +38,7 @@
     import { mapState } from 'vuex';
     import { getUser } from '../api.js';
     import { getTopicCollect } from '../api.js';
+    import { getTopic } from '../api.js';
 
     export default {
         data() {
@@ -51,6 +52,8 @@
             getUser(this.$route.params.loginname)
             .then((response) => {
                 this.user = response.data;
+                this.recent(response.data.recent_topics);
+                this.recent(response.data.recent_replies);
             })
             .catch((error) => {
                 console.log(error);
@@ -70,6 +73,8 @@
                 getUser(this.$route.params.loginname)
                 .then((response) => {
                     this.user = response.data;
+                    this.recent(response.data.recent_topics);
+                    this.recent(response.data.recent_replies);
                 })
                 .catch((error) => {
                     console.log(error);
@@ -89,6 +94,22 @@
             ...mapState({
                 create_at: 'interval',
             })
+        },
+
+        methods: {
+            recent(data) {
+                data.forEach((val) => {
+                    getTopic(val.id).then((response) => {
+                        val.reply_count = response.data.reply_count;
+                        val.visit_count = response.data.visit_count;
+                        val.good = response.data.good;
+                        val.top = response.data.top;
+                        val.tab = response.data.tab;
+                    }).catch((error) => {
+                        console.log(error);
+                    });
+                })
+            }
         },
 
         components: {

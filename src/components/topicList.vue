@@ -14,8 +14,9 @@
                     <span v-else>{{ tab[topic.tab] }}</span> 
                     <router-link :to="{name: 'topic', params: {id: topic.id}}">{{ topic.title }}</router-link>
                 </div>
-                <router-link :to="{name: 'topic', params: {id: topic.id}, hash: ``}">
-                    <span class="last_reply">{{ last_reply(topic.last_reply_at) }}</span> 
+                <router-link :to="`topic/${topic.id}#hash${topic.last_reply_id}`" class="last_reply">
+                    <img :src="topic.last_reply_avatar_url" :title="topic.last_reply_loginname">
+                    <span>{{ last_reply(topic.last_reply_at) }}</span> 
                 </router-link>
             </li>
         </ul>

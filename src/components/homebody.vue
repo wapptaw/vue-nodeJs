@@ -17,6 +17,7 @@
     import topicList from './topicList.vue'
     import { getTopics } from '../api.js';
     import { sort } from '../filters.js';
+    import { getTopic } from '../api.js';
 
     export default {
         data() {
@@ -46,8 +47,20 @@
 
         created() {
             getTopics()
-            .then((data) => {
-                this.topics = data.data;
+            .then((response) => {
+                this.topics = response.data;
+                response.data.forEach((val) => {
+                    getTopic(val.id).then((response) => {
+                        const replies_len = response.data.replies.length;
+                        if(replies_len > 0) {
+                            val.last_reply_avatar_url = response.data.replies[replies_len-1].author.avatar_url;
+                            val.last_reply_loginname = response.data.replies[replies_len-1].author.loginname;
+                            val.last_reply_id = response.data.replies[replies_len-1].id;
+                        }
+                    }).catch((error) => {
+                        console.log(error);
+                    })
+                })
             })
             .catch((error) => {
                 console.log(error);
