@@ -27,5 +27,33 @@
                 }
             }
         }
+        .pageNav {
+            background-color: #fff;
+            padding: 0 0 10px 10px;
+            li {
+                display: table-cell;
+                font-size: 15px;
+                color: #778087;
+                border: 1px #ddd solid;
+                border-collapse: collapse;
+                a {
+                    color: #778087;
+                    display: table-cell;
+                    height: 30px;
+                    padding: 0 13px;
+                    vertical-align: middle;
+                    text-align: center;
+                }
+                .selected_page {
+                    color: #80bd01;
+                }
+            }
+            .ellipsis {
+                height: 30px;
+                padding: 0 13px;
+                vertical-align: middle;
+                text-align: center;
+            } 
+        }
     }
 }

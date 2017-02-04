@@ -11,11 +11,11 @@
                 <div class="tab">
                     <span v-if="topic.good" class="good">精品</span>
                     <span v-else-if="topic.top" class="top">置顶</span>
-                    <span v-else>{{ tab[topic.tab] }}</span> 
+                    <span v-else-if="topic.tab">{{ tab[topic.tab] }}</span> 
                     <router-link :to="{name: 'topic', params: {id: topic.id}}">{{ topic.title }}</router-link>
                 </div>
                 <router-link :to="`topic/${topic.id}#hash${topic.last_reply_id}`" class="last_reply">
-                    <img :src="topic.last_reply_avatar_url" :title="topic.last_reply_loginname">
+                    <img :src="topic.last_reply_avatar_url" :title="topic.last_reply_loginname" v-if="topic.last_reply_img">
                     <span>{{ last_reply(topic.last_reply_at) }}</span> 
                 </router-link>
             </li>

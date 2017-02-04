@@ -1,6 +1,6 @@
 // 获取话题列表
-export const getTopics = async () => {
-    const response = await fetch(`https://cnodejs.org/api/v1/topics`, {
+export const getTopics = async (num=1) => {
+    const response = await fetch(`https://cnodejs.org/api/v1/topics?page=${num}`, {
         mode: 'cors'
     }).catch((error) => {
         console.log(error);
