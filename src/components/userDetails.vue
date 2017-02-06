@@ -1,16 +1,16 @@
 <template>  
-    <article>
-        <section>
-            <div>
+    <article class="user">
+        <section class="userPage">
+            <div class="path">
                 <router-link to='/'>主页</router-link>
-                <span>/</span>
+                <span class="slash">/</span>
             </div>
-            <div>
+            <div class="loginname">
                 <img :src="user.avatar_url" :alt="user.loginname">
                 <span>{{ user.loginname }}</span>
             </div>
-            <div>{{ user.score }}积分</div>
-            <div>
+            <div class="score">{{ user.score }}积分</div>
+            <div class="github">
                 <router-link :to="`${user.loginname}/collections`">{{ topicCollect.length }}个话题收藏</router-link>
                 <div>
                     <a :href="`https://github.com/${user.githubUsername}`">
@@ -18,15 +18,19 @@
                         <span>@{{ user.githubUsername }}</span>
                     </a>
                 </div>
-                <div>注册时间{{ create_at(user.create_at) }}</div>
+                <div class="createTime">注册时间{{ create_at(user.create_at) }}</div>
             </div>
         </section>
         <section>
-            <h3>最近创建的话题</h3>
+            <div class="path">
+                <h3>最近创建的话题</h3>
+            </div>
             <topicList :topics="user.recent_topics"></topicList>
         </section>
         <section>
-            <h3>最近参与的话题</h3>
+            <div class="path">
+                <h3>最近创建的话题</h3>
+            </div>
             <topicList :topics="user.recent_replies"></topicList>
         </section>
     </article>

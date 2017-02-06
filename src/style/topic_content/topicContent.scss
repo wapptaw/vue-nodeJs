@@ -1,10 +1,5 @@
 .topic_content {
-    background-color: #e1e1e1;
-    padding: 15px 67px;
     .topic_header {
-        width: 910px;
-        background-color: #fff;
-        @include prefix(border-radius, 3px);
         .title {
             padding: 20px 10px 13px 10px;
             border-bottom: 1px solid #e5e5e5;

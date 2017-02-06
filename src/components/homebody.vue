@@ -1,6 +1,6 @@
 <template>
-    <div class="home">
-        <article class="topicSorts">
+    <article class="home">
+        <section class="topicSorts">
             <nav>
                 <ul>
                     <li v-for="(sort, index) of sorts" @click="select(index)" :class="{selected: sort.selected}">
@@ -24,8 +24,8 @@
                     <router-link :to="{path: '/', query: {page: 100, tab: $route.query.tab}}">»</router-link><!--不清楚总共有多少页，不知道咋写-->
                 </li>
             </ul>
-        </article>
-    </div>
+        </section>
+    </article>
 </template>
 
 <script>

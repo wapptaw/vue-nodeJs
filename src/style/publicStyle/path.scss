@@ -1,0 +1,22 @@
+.path {
+    height: 40px;
+    padding: 0 10px;
+    line-height: 40px;
+    font-size: 15px;
+    background-color: #f6f6f6;
+    border-bottom: 1px solid #e5e5e5;
+    a{
+        color: #80bd01;
+    }
+    span {
+        color: #778087;
+    }
+    .slash {
+        color: #cecdd5;
+    }
+    h3 {
+        font-size: 15px;
+        color: #333;
+        font-weight: normal;
+    }
+}

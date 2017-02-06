@@ -1,9 +1,9 @@
 <template>
     <article>
         <section>
-            <div>
+            <div class="path">
                 <router-link to='/'>主页</router-link>
-                <span>/</span>
+                <span class="slash">/</span>
                 <span>{{ $route.params.loginname }}收藏的话题</span>
             </div>
             <topicList :topics="collections"></topicList>

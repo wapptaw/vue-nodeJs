@@ -24,3 +24,13 @@ input {
 h1, h2, h3, h4, h5, h6 {
     @include init;
 }
+article {
+    background-color: #e1e1e1;
+    padding: 15px 67px;
+}
+section {
+    width: 910px;
+    background-color: #fff;
+    @include prefix(border-radius, 3px);
+    margin-bottom: 13px;
+}
