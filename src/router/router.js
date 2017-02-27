@@ -5,6 +5,7 @@ import homebody from '../components/homebody.vue';
 import topicContent from '../components/topicContent.vue';
 import userDetails from '../components/userDetails.vue';
 import collections from '../components/collections.vue';
+import createTopic from '../components/createTopic.vue';
 
 Vue.use(VueRouter);
 
@@ -18,6 +19,13 @@ export default new VueRouter({
                 {
                     path: '',
                     component: homebody,
+                    meta: {
+                        scrollToTop: true,
+                    }
+                },
+                {
+                    path: 'topic/create',
+                    component: createTopic,
                 },
                 {
                     path: 'topic/:id',

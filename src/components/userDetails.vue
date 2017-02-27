@@ -1,5 +1,6 @@
 <template>  
-    <article class="user">
+    <div v-if="loading">加载中...</div>
+    <article class="user" v-else>
         <section class="userPage">
             <div class="path">
                 <router-link to='/'>主页</router-link>
@@ -49,6 +50,7 @@
             return {
                 user: '',
                 topicCollect: '',
+                loading: true,
             }
         },
 
@@ -58,6 +60,7 @@
                 this.user = response.data;
                 this.recent(response.data.recent_topics);
                 this.recent(response.data.recent_replies);
+                this.loading = false;
             })
             .catch((error) => {
                 console.log(error);

@@ -1,5 +1,6 @@
 <template>
-    <article>
+    <div v-if="loading">加载中...</div>
+    <article v-else>
         <section>
             <div class="path">
                 <router-link to='/'>主页</router-link>
@@ -18,13 +19,15 @@
     export default {
         data() {
             return {
-                collections: ''
+                collections: '',
+                loading: true,
             }
         },
 
         created() {
             getTopicCollect(this.$route.params.loginname).then((response) => {
                 this.collections = response.data;
+                this.loading = false;
             }).catch((error) => {
                 console.log(error);
             });

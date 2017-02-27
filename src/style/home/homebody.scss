@@ -1,4 +1,5 @@
 .home {
+    position: relative;
     .topicSorts {
         &>nav {
             padding: 0 20px;
@@ -50,6 +51,26 @@
                 vertical-align: middle;
                 text-align: center;
             } 
+        }
+    }
+    .createBtn {
+        top: 195px;
+        height: 54px;
+        padding: 10px;
+        @include prefix(box-sizing, border-box);
+        a {
+            display: block;
+            width: 84px;
+            input {
+                cursor: pointer;
+                width: 84px;
+                height: 34px;
+                background-color: #80bd01;
+                color: #fff;
+                @include prefix(border-radius, 3px);
+                font-size: 14px;
+            }
+            
         }
     }
 }

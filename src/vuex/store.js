@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import { loginCheck } from '../api.js';
 
 Vue.use(Vuex);
 
@@ -31,7 +32,9 @@ export default new Vuex.Store({
             } else {
                 return `${Math.floor(second)} 秒前`;
             }
-        }
+        },
+        logined: '',
+        accesstoken: ''
     },
 
     getters: {
@@ -39,7 +42,14 @@ export default new Vuex.Store({
     },
 
     actions: {
-        
+        logining({ state }, accessToken) {
+            state.accesstoken = accessToken;
+            loginCheck(accessToken).then((response) => {
+                state.logined = response;
+            }).catch((error) => {
+                console.log(error);
+            })
+        }
     },
 
     mutatuins: {

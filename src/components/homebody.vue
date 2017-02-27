@@ -1,5 +1,6 @@
 <template>
-    <article class="home">
+    <div v-if="loading" class="load">加载中...</div>
+    <article class="home" v-else>
         <section class="topicSorts">
             <nav>
                 <ul>
@@ -25,15 +26,32 @@
                 </li>
             </ul>
         </section>
+
+        <template v-if="logined.success">
+            <user :user="logined"></user>
+            <aside class="createBtn">
+                <router-link to="/topic/create">
+                    <input type="button" value="发布话题">
+                </router-link>
+            </aside>
+        </template>
+        <aside v-else>
+            <input type="text" placeholder="accessToken" v-model="accessToken">
+            <input type="submit" value="登录" @click="logining(accessToken)">
+        </aside>
     </article>
 </template>
 
 <script>
     import topicList from './topicList.vue'
+    import user from './user.vue';
     import { getTopics } from '../api.js';
     import { sort } from '../filters.js';
     import { getTopic } from '../api.js';
-
+    import store from '../vuex/store.js';
+    import { mapState } from 'vuex';
+    import { getUser } from '../api.js';
+    
     export default {
         data() {
             return {
@@ -48,6 +66,9 @@
                 font: false,
                 back: true,
                 counter: 1,
+                loading: true,
+                abort: false,
+                accessToken: '',
             }
         },
 
@@ -70,7 +91,11 @@
                     pages[0].selected = true;
                 }
                 return pages;
-            }
+            },
+
+            ...mapState({
+                logined: 'logined',
+            })
         },
 
         beforeRouteUpdate(to, from, next) {
@@ -85,6 +110,7 @@
                     this.counter = 1;
                     this.font =false;
                 }
+                this.loading = false;
                 next();
             });
         },
@@ -99,8 +125,9 @@
                     }
                 })
             },
+            
             last_reply(data) {
-                data.forEach((val) => {
+                for(let val of data) {
                     getTopic(val.id).then((response) => {
                         const replies_len = response.data.replies.length;
                         if(replies_len > 0) {
@@ -113,20 +140,38 @@
                         }
                     }).catch((error) => {
                         console.log(error);
-                    })
+                    });
+                }
+            },
+
+            getScore(data) {
+                getUser(data.loginname).then((response) => {
+                    this.logined.score = response.data.score;
+                }).catch((error) => {
+                    console.log(error);
                 })
+            },
+
+            logining(login) {
+                this.$store.dispatch('logining', this.accessToken);
             }
         },
+
 
         created() {
             getTopics()
             .then((response) => {
                 this.topics = response.data;
                 this.last_reply(this.topics);
+                this.loading = false;
             })
             .catch((error) => {
                 console.log(error);
-            })
+            });
+
+            if(this.logined) {
+                this.getScore(this.logined);
+            }
         },
 
         filters: {
@@ -134,7 +179,10 @@
         },
 
         components: {
-            topicList
+            topicList,
+            user,
         },
+
+        store,
     }
 </script>

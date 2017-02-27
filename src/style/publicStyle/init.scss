@@ -15,11 +15,15 @@ a {
     @include init;
     text-decoration: none;
 }
-input {
+input, textarea, select, option {
     @include init;
     border: none;
     background-color: none;
     outline: none;
+}
+textarea {
+    @include init;
+    resize: none;
 }
 h1, h2, h3, h4, h5, h6 {
     @include init;
@@ -33,4 +37,14 @@ section {
     background-color: #fff;
     @include prefix(border-radius, 3px);
     margin-bottom: 13px;
+}
+aside {
+    @include init;
+    width: 290px;
+    @include prefix(border-radius, 5px);
+    @include prefix(box-sizing, border-box);
+    background-color: #fff;
+    position: absolute;
+    right: 67px;
+    top: 15px;
 }

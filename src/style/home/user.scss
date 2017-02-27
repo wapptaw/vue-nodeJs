@@ -1,0 +1,33 @@
+.loginname {
+    height: 170px;
+    h3 {
+        height: 40px;
+        background-color: #f6f6f6;
+        font-size: 14px;
+        color: #444;
+        line-height: 40px;
+        padding-left: 10px;
+        @include prefix(border-radius, 5px 5px 0 0);
+    }
+    &>div {
+        padding: 10px;
+        a {
+            img {
+                width: 48px;
+                @include prefix(border-radius, 3px);
+                vertical-align: middle;
+            }
+            span {
+                font-size: 14px;
+                color: #778087;
+                vertical-align: middle;
+                margin-left: 5px;
+            }
+        }
+        div, em {
+            font-size: 14px;
+            color: #333;
+            margin-top: 16px;
+        }
+    }    
+}

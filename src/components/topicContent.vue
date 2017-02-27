@@ -1,5 +1,6 @@
 <template>
-    <article class="topic_content">
+    <div v-if="loading">加载中...</div>
+    <article class="topic_content" v-else>
         <section class="topic_header">
             <div class="title">
                 <span v-if="topic.top">置顶</span>
@@ -38,6 +39,7 @@
         data() {
             return {
                 topic: '',
+                loading: true,
             }
         },
 
@@ -64,6 +66,7 @@
             getTopic(this.$route.params.id)
             .then((response) => {
                 this.topic = response.data;
+                this.loading = false;
             });
         },
 
