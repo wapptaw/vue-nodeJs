@@ -5,7 +5,7 @@
         </router-link>
         <input type="text">
         <ul>
-            <li v-for="nav of navs">
+            <li v-for="nav of logined">
                 <router-link :to="nav.skip">
                     {{ nav.name }}
                 </router-link>
@@ -15,6 +15,8 @@
 </template>
 
 <script>
+    import store from '../vuex/store.js';
+
     export default {
         data() {
             return {
@@ -27,6 +29,20 @@
                     {name: '登录', skip: 'signin'}
                 ]
             }
-        }
+        },
+
+        computed: {
+            logined() {
+                if(this.$store.state.logined.success) {
+                    this.navs.splice(1, 0, { name: '未读消息', skip: 'message' });
+                    this.navs.splice(5, 2, { name: '设置', skip: 'setup' }, { name: '退出', skip: 'skip' });
+                    return this.navs;
+                } else {
+                    return this.navs;
+                }
+            }
+        },
+
+        store
     }
 </script>

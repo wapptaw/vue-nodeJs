@@ -7,23 +7,24 @@
                 <span class="slash">/</span>
                 <span>发布话题</span>
             </div>
-            <div>
-                <div>
+            <div class="creation">
+                <div v-if="hint" class="hint">{{ message }}</div>
+                <div class="module">
                     选择模块：
                     <select v-model="tab">
                         <option :value="option.val" v-for="option of selects">{{ option.option }}</option>
                     </select>
                 </div>
-                <div>
+                <div class="topicTitle">
                     <input type="text" placeholder="标题字数10字以上" v-model="title">
                 </div>
-                <div>
-                    <span v-for="markIcon of markIcons" :style="markIcon.btnStyle"></span>
+                <div class="assist">
+                    <span v-for="markIcon of markIcons" :style="markIcon.btnStyle" @click="tagType(markIcon.type)">{{ markIcon.message }}</span>
                 </div>
-                <div>
-                    <textarea name="" id="" cols="30" rows="10" v-model="myTopic"></textarea>
+                <div class="editor">
+                    <textarea v-model="myTopic"></textarea>
                 </div>
-                <div>
+                <div class="submit">
                     <input type="submit" @click="submit">
                 </div>
             </div>
@@ -49,16 +50,18 @@
                 title: '',
                 tab: '',
                 myTopic: '',
+                hint: false,
+                message: '',
                 markIcons: [
-                    { btnStyle: {backgroundColor: 'red',} },
-                    { btnStyle: {backgroundColor: 'red',} },
-                    { btnStyle: {backgroundColor: 'red',} },
-                    { btnStyle: {backgroundColor: 'red',} },
-                    { btnStyle: {backgroundColor: 'red',} },
-                    { btnStyle: {backgroundColor: 'red',} },
-                    { btnStyle: {backgroundColor: 'red',} },
-                    { btnStyle: {backgroundColor: 'red',} },
-                    { btnStyle: {backgroundColor: 'red',} },
+                    { btnStyle: {backgroundColor: '',}, message: '加粗', type: '****' },
+                    { btnStyle: {backgroundColor: '',}, message: '斜体', type: '**' },
+                    { btnStyle: {backgroundColor: '',}, message: '引用', type: '>' },
+                    { btnStyle: {backgroundColor: '',}, message: '无序列表', type: '*' },
+                    { btnStyle: {backgroundColor: '',}, message: '有序列表', type: '1.' },
+                    { btnStyle: {backgroundColor: '',}, message: '加粗' },
+                    { btnStyle: {backgroundColor: '',}, message: '加粗' },
+                    { btnStyle: {backgroundColor: '',}, message: '加粗' },
+                    { btnStyle: {backgroundColor: '',}, message: '加粗' },
                 ]
             }
         },
@@ -68,9 +71,9 @@
         },
 
         computed: {
-            trans() {
-                this.myTopic.replace(/^#{3}\s(.*(?=\n))/g, '<h2>$&</h2>')
-            },
+            // trans() {
+            //     this.myTopic.replace(/^#{3}\s(.*(?=\n))/g, '<h2>$&</h2>')
+            // },
 
             ...mapState({
                 accesstoken: 'accesstoken',
@@ -82,31 +85,43 @@
                 let content = {};
                 if(this.accesstoken) {
                     content.accesstoken = this.accesstoken;
+                    this.hint = false;
                 } else {
-                    console.log('请先登录');
+                    this.hint = true;
+                    this.message = '请先登录';
                     return;
                 }
                 if(this.title) {
                     content.title = this.title;
-                } else {
-                    console.log('标题不能为空');
+                    this.hint = false;
+                } else if (this.title.length < 10) {
+                    this.hint = true;
+                    this.message = '标题不能小于10个字符';
                     return;
                 }
                 if(this.tab) {
                     content.tab = this.tab;
+                    this.hint = false;
                 } else {
-                    console.log('请选择一个板块')
+                    this.hint = true;
+                    this.message = '请选择一个板块';
                     return;
                 }
                 if(this.myTopic) {
                     content.content = this.myTopic;
+                    this.hint = false;
                 } else {
-                    console.log('内容不能为空');
+                    this.hint = true;
+                    this.message = '内容不能为空';
                     return;
                 }
                 createTopic(content);
+            },
+            tagType(mark) {
+                this.myTopic = this.myTopic + mark;
             }
         },
+
 
         store
     }
