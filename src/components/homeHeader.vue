@@ -5,8 +5,8 @@
         </router-link>
         <input type="text">
         <ul>
-            <li v-for="nav of logined">
-                <router-link :to="nav.skip">
+            <li v-for="nav of logined" @click="use(nav.use)">
+                <router-link :to="nav.jump">
                     {{ nav.name }}
                 </router-link>
             </li>
@@ -21,12 +21,12 @@
         data() {
             return {
                 navs: [
-                    {name: '首页', skip: '/'},
-                    {name: '新手入门', skip: 'getstart'},
-                    {name: 'API', skip: 'API'},
-                    {name: '关于', skip: 'about'},
-                    {name: '注册', skip: 'login'},
-                    {name: '登录', skip: 'signin'}
+                    {name: '首页', jump: '/'},
+                    {name: '新手入门', jump: 'getstart'},
+                    {name: 'API', jump: 'API'},
+                    {name: '关于', jump: 'about'},
+                    {name: '注册', jump: 'login'},
+                    {name: '登录', jump: 'signin'}
                 ]
             }
         },
@@ -34,11 +34,26 @@
         computed: {
             logined() {
                 if(this.$store.state.logined.success) {
-                    this.navs.splice(1, 0, { name: '未读消息', skip: 'message' });
-                    this.navs.splice(5, 2, { name: '设置', skip: 'setup' }, { name: '退出', skip: 'skip' });
-                    return this.navs;
+                    let _navs = [
+                        { name: '首页', jump: '/' },
+                        { name: '未读消息', jump: 'message' },
+                        { name: '新手入门', jump: 'getstart' },
+                        { name: 'API', jump: 'API' },
+                        { name: '关于', jump: 'about' },
+                        { name: '设置', jump: 'setup' },
+                        { name: '退出', jump: '/', use: 'quit' }
+                    ];
+                    return _navs;
                 } else {
                     return this.navs;
+                }
+            }
+        },
+
+        methods: {
+            use(use) {
+                if(use === 'quit') {
+                    this.$store.commit('changeLogined');
                 }
             }
         },

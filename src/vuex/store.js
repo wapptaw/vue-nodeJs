@@ -52,8 +52,11 @@ export default new Vuex.Store({
         }
     },
 
-    mutatuins: {
-        
+    mutations: {
+        changeLogined(state) {
+            state.logined = '';
+            state.accesstoken = '';
+        }
     },
 
     modules: {

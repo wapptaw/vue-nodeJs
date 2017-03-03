@@ -35,8 +35,8 @@
                 </router-link>
             </aside>
         </template>
-        <aside v-else>
-            <input type="text" placeholder="accessToken" v-model="accessToken">
+        <aside v-else class="login">
+            <input type="text" :placeholder="placeholder" v-model="accessToken">
             <input type="submit" value="登录" @click="logining(accessToken)">
         </aside>
     </article>
@@ -91,6 +91,12 @@
                     pages[0].selected = true;
                 }
                 return pages;
+            },
+            placeholder() {
+                if(this.logined !== '' && !this.logined.success) {
+                    return this.logined.error_msg;
+                }
+                return 'accessToken';
             },
 
             ...mapState({
